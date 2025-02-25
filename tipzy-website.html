@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipzy - Support Creators, Buy Photos, Join Memberships</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --light: #f5f6fa;
+            --dark: #2d3436;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f6fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5046c9;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-light:hover {
+            background-color: var(--light);
+        }
+        
+        /* Featured Creators */
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-header h2 {
+            font-size: 32px;
+            color: var(--dark);
+        }
+        
+        .section-header p {
+            color: #636e72;
+            max-width: 700px;
+            margin: 10px auto 0;
+        }
+        
+        .creators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .creator-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .creator-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .creator-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .creator-info {
+            padding: 20px;
+        }
+        
+        .creator-info h3 {
+            margin-bottom: 10px;
+        }
+        
+        .creator-info p {
+            color: #636e72;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--light);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        /* Membership Section */
+        .membership {
+            background-color: white;
+        }
+        
+        .plans-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .plan-card {
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .plan-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+        
+        .plan-price {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+        
+        .plan-price span {
+            font-size: 16px;
+            color: #636e72;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .plan-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Shop Section */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            background-color: var(--light);
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .upload-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--secondary);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #b2bec3;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #636e72;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .creator-card, .plan-card, .product-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Tip<span>zy</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#creators">Creators</a></li>
+                    <li><a href="#membership">Memberships</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="#upload">Upload</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-outline">Log In</button>
+                <button class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Share Your Photos, Build Your Community</h1>
+            <p>Upload your best shots, gain supporters, and monetize your work with memberships and prints</p>
+            <div class="hero-buttons">
+                <a href="#upload" class="btn btn-light">Start Uploading</a>
+                <a href="#membership" class="btn btn-outline">Become a Member</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Creators Section -->
+    <section class="section" id="creators">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Creators</h2>
+                <p>Discover amazing photographers sharing their unique perspectives</p>
+            </div>
+            <div class="creators-grid">
+                <!-- Creator 1 -->
+                <div class="creator-card">
+                    <img src="/api/placeholder/400/320" alt="Nature photographer" class="creator-img">
+                    <div class="creator-info">
+                        <h3>Lisa Moreno</h3>
+                        <p>Wildlife and nature photographer capturing the untamed beauty of our world.</p>
+                        <div>
+                            <span class="tag">Wildlife</span>
+                            <span class="tag">Nature</span>
+                            <span class="tag">Landscapes</span>
+                        </div>
+                        <button class="btn btn-primary" style="margin-top: 15px;">Support</button>
+                    </div>
+                </div>
+                
+                <!-- Creator 2 -->
+                <div class="creator-card">
+                    <img src="/api/placeholder/400/320" alt="Street photographer" class="creator-img">
+                    <div class="creator-info">
+                        <h3>Marcus Chen</h3>
+                        <p>Street photographer documenting urban life and architecture in metropolitan cities.</p>
+                        <div>
+                            <span class="tag">Street</span>
+                            <span class="tag">Urban</span>
+                            <span class="tag">Architecture</span>
+                        </div>
+                        <button class="btn btn-primary" style="margin-top: 15px;">Support</button>
+                    </div>
+                </div>
+                
+                <!-- Creator 3 -->
+                <div class="creator-card">
+                    <img src="/api/placeholder/400/320" alt="Portrait photographer" class="creator-img">
+                    <div class="creator-info">
+                        <h3>Amara Johnson</h3>
+                        <p>Portrait artist capturing the essence of human emotion through expressive photography.</p>
+                        <div>
+                            <span class="tag">Portraits</span>
+                            <span class="tag">People</span>
+                            <span class="tag">Fashion</span>
+                        </div>
+                        <button class="btn btn-primary" style="margin-top: 15px;">Support</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Section -->
+    <section class="section membership" id="membership">
+        <div class="container">
+            <div class="section-header">
+                <h2>Choose Your Membership</h2>
+                <p>Get exclusive access to premium photos and support your favorite creators</p>
+            </div>
+            <div class="plans-container">
+                <!-- Basic Plan -->
+                <div class="plan-card">
+                    <h3>Basic</h3>
+                    <div class="plan-price">$5 <span>/month</span></div>
+                    <ul class="plan-features">
+                        <li>Access to basic photo collections</li>
+                        <li>Early access to new uploads</li>
+                        <li>Basic profile customization</li>
+                        <li>Support up to 3 creators</li>
+                    </ul>
+                    <button class="btn btn-outline">Select Plan</button>
+                </div>
+                
+                <!-- Premium Plan -->
+                <div class="plan-card" style="border: 2px solid var(--primary);">
+                    <h3>Premium</h3>
+                    <div class="plan-price">$15 <span>/month</span></div>
+                    <ul class="plan-features">
+                        <li>Access to premium photo collections</li>
+                        <li>Download high-resolution photos</li>
+                        <li>10% discount on all shop items</li>
+                        <li>Support up to 10 creators</li>
+                        <li>Monthly exclusive content</li>
+                    </ul>
+                    <button class="btn btn-primary">Select Plan</button>
+                </div>
+                
+                <!-- Pro Plan -->
+                <div class="plan-card">
+                    <h3>Professional</h3>
+                    <div class="plan-price">$30 <span>/month</span></div>
+                    <ul class="plan-features">
+                        <li>Access to all photo collections</li>
+                        <li>Download all resolutions</li>
+                        <li>20% discount on all shop items</li>
+                        <li>Support unlimited creators</li>
+                        <li>Weekly exclusive content</li>
+                        <li>Direct messaging with creators</li>
+                    </ul>
+                    <button class="btn btn-outline">Select Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section class="section" id="shop">
+        <div class="container">
+            <div class="section-header">
+                <h2>Shop Photos</h2>
+                <p>Purchase prints, digital downloads, and more from your favorite creators</p>
+            </div>
+            <div class="shop-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <img src="/api/placeholder/400/320" alt="Mountain landscape print" class="product-img">
+                    <div class="product-info">
+                        <h3>Mountain Sunrise</h3>
+                        <p>By Lisa Moreno</p>
+                        <div class="product-price">$45.00</div>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <img src="/api/placeholder/400/320" alt="Urban night scene" class="product-img">
+                    <div class="product-info">
+                        <h3>City Lights</h3>
+                        <p>By Marcus Chen</p>
+                        <div class="product-price">$35.00</div>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <img src="/api/placeholder/400/320" alt="Portrait print" class="product-img">
+                    <div class="product-info">
+                        <h3>Autumn Portrait</h3>
+                        <p>By Amara Johnson</p>
+                        <div class="product-price">$50.00</div>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <img src="/api/placeholder/400/320" alt="Beach sunset" class="product-img">
+                    <div class="product-info">
+                        <h3>Coastal Sunset</h3>
+                        <p>By Lisa Moreno</p>
+                        <div class="product-price">$40.00</div>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="section upload-section" id="upload">
+        <div class="container">
+            <div class="section-header">
+                <h2>Share Your Photos</h2>
+                <p>Upload your best work and start building your community</p>
+            </div>
+            <div class="upload-box">
+                <div class="upload-area">
+                    <div class="upload-icon">📸</div>
+                    <h3>Drag & Drop Your Photos Here</h3>
+                    <p>or click to browse files</p>
+                </div>
+                <button class="btn btn-primary">Start Uploading</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tipzy</h3>
+                    <p>A platform for photographers to share, sell, and build a community around their work.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="#creators">Creators</a></li>
+                        <li><a href="#membership">Memberships</a></li>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a href="#upload">Upload</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tipzy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
